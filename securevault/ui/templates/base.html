@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}SecureVault{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #070D14;
+      --surface:   #0D1B2A;
+      --card:      #112033;
+      --border:    #1A3050;
+      --teal:      #00C9A7;
+      --teal-dim:  #00A896;
+      --teal-glow: rgba(0,201,167,0.12);
+      --purple:    #7C5CFC;
+      --coral:     #FF6B6B;
+      --gold:      #FFD166;
+      --white:     #F0F6FF;
+      --muted:     #5A7A9A;
+      --text:      #C8DCF0;
+      --mono:      'JetBrains Mono', monospace;
+      --sans:      'Space Grotesk', sans-serif;
+    }
+
+    html { font-size: 15px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ────────────────────────────────────── */
+    nav {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-brand {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--teal);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-brand::before {
+      content: '';
+      display: inline-block;
+      width: 10px; height: 10px;
+      background: var(--teal);
+      border-radius: 2px;
+      transform: rotate(45deg);
+    }
+    .nav-links { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+    .nav-user {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .avatar {
+      width: 30px; height: 30px;
+      background: var(--teal-glow);
+      border: 1px solid var(--teal-dim);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700; color: var(--teal);
+    }
+    .btn-logout {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); padding: 4px 12px;
+      border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+      font-family: var(--sans); transition: all 0.2s;
+    }
+    .btn-logout:hover { border-color: var(--coral); color: var(--coral); }
+
+    /* ── MAIN ───────────────────────────────────── */
+    main { flex: 1; padding: 2rem; max-width: 1200px; margin: 0 auto; width: 100%; }
+
+    /* ── CARDS ──────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+    .card-title {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    /* ── BUTTONS ─────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 8px;
+      font-family: var(--sans); font-size: 0.88rem; font-weight: 600;
+      cursor: pointer; border: none; transition: all 0.2s; text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--teal); color: var(--bg);
+    }
+    .btn-primary:hover { background: #00e8c0; transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent; color: var(--teal);
+      border: 1px solid var(--teal-dim);
+    }
+    .btn-ghost:hover { background: var(--teal-glow); }
+    .btn-danger {
+      background: transparent; color: var(--coral);
+      border: 1px solid rgba(255,107,107,0.3);
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.1); }
+    .btn-sm { padding: 5px 12px; font-size: 0.8rem; }
+
+    /* ── INPUTS ──────────────────────────────────── */
+    .input {
+      width: 100%; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 14px; color: var(--white);
+      font-family: var(--sans); font-size: 0.9rem;
+      transition: border-color 0.2s; outline: none;
+    }
+    .input:focus { border-color: var(--teal); box-shadow: 0 0 0 3px var(--teal-glow); }
+    .input::placeholder { color: var(--muted); }
+    label { display: block; font-size: 0.82rem; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+    .form-group { margin-bottom: 1.2rem; }
+
+    /* ── BADGES ──────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; font-family: var(--mono);
+    }
+    .badge-green { background: rgba(0,201,167,0.15); color: var(--teal); border: 1px solid rgba(0,201,167,0.3); }
+    .badge-red   { background: rgba(255,107,107,0.15); color: var(--coral); border: 1px solid rgba(255,107,107,0.3); }
+    .badge-gold  { background: rgba(255,209,102,0.15); color: var(--gold); border: 1px solid rgba(255,209,102,0.3); }
+
+    /* ── ALERTS ──────────────────────────────────── */
+    .alert {
+      padding: 12px 16px; border-radius: 8px; font-size: 0.88rem;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 10px;
+    }
+    .alert-success { background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.3); color: var(--teal); }
+    .alert-error   { background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3); color: var(--coral); }
+
+    /* ── TABLE ───────────────────────────────────── */
+    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+    th {
+      text-align: left; padding: 10px 14px;
+      font-size: 0.72rem; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted); border-bottom: 1px solid var(--border);
+    }
+    td { padding: 12px 14px; border-bottom: 1px solid rgba(26,48,80,0.5); color: var(--text); }
+    tr:hover td { background: rgba(0,201,167,0.03); }
+    .mono { font-family: var(--mono); font-size: 0.8rem; }
+
+    /* ── TOAST ───────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 20px;
+      font-size: 0.88rem; color: var(--white);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      transform: translateY(80px); opacity: 0;
+      transition: all 0.3s; z-index: 999;
+      display: flex; align-items: center; gap: 10px;
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+    #toast.success { border-color: var(--teal); }
+    #toast.error   { border-color: var(--coral); }
+
+    /* ── MODAL ───────────────────────────────────── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(7,13,20,0.85); backdrop-filter: blur(4px);
+      z-index: 200; align-items: center; justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 2rem; width: 100%; max-width: 440px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    }
+    .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: 1.5rem; }
+
+    /* ── DOT ─────────────────────────────────────── */
+    .dot {
+      display: inline-block; width: 8px; height: 8px;
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .dot-green { background: var(--teal); box-shadow: 0 0 6px var(--teal); }
+    .dot-red   { background: var(--coral); box-shadow: 0 0 6px var(--coral); }
+    .dot-pulse {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* ── PROGRESS ────────────────────────────────── */
+    .progress-bar {
+      height: 4px; background: var(--border); border-radius: 2px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: var(--teal); border-radius: 2px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── SCROLLBAR ───────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+{% if session.get('user_id') %}
+<nav>
+  <a href="/dashboard" class="nav-brand">SecureVault</a>
+  <div class="nav-links">
+    <a href="/dashboard" {% if request.path == '/dashboard' %}class="active"{% endif %}>Files</a>
+    <a href="/nodes"    {% if request.path == '/nodes' %}class="active"{% endif %}>Nodes</a>
+    <a href="/share"    {% if request.path == '/share' %}class="active"{% endif %}>Share</a>
+  </div>
+  <div class="nav-user">
+    <div class="avatar">{{ session.get('username', 'U')[0].upper() }}</div>
+    <span>{{ session.get('username') }}</span>
+    <button class="btn-logout" onclick="logout()">Sign out</button>
+  </div>
+</nav>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<div id="toast"></div>
+
+<script>
+  function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = (type === 'success' ? '✓  ' : '✗  ') + msg;
+    t.className = 'show ' + type;
+    setTimeout(() => { t.className = ''; }, 3500);
+  }
+  function logout() {
+    localStorage.removeItem('sv_token');
+    window.location.href = '/';
+  }
+  // Auto-dismiss flash messages
+  document.querySelectorAll('.alert').forEach(a => {
+    setTimeout(() => a.style.display = 'none', 4000);
+  });
+</script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

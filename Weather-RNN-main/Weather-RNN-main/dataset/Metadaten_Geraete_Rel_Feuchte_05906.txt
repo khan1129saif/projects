@@ -1,0 +1,10 @@
+Stations_ID;Stationsname;Geo. Laenge [Grad];Geo. Breite [Grad];Stationshoehe [m];Geberhoehe ueber Grund [m];Von_Datum;Bis_Datum;Geraetetyp Name;Messverfahren;eor;
+5906;Mannheim;8.5;49.53;96;2;19480101;19500331;Hygrograph nach Frankenberg;Feuchteregistrierung, konv.;eor;
+5906;Mannheim;8.5;49.53;96;2;19500401;19750813;Hygrograph nach Frankenberg;Feuchteregistrierung, konv.;eor;
+5906;Mannheim;8.55;49.51;96;2;19750814;19781031;Hygrograph nach Frankenberg;Feuchteregistrierung, konv.;eor;
+5906;Mannheim;8.55;49.51;96;2;19781101;20060530;Thermohygrograph;Temperatur- und Feuchtereg., konv.;eor;
+5906;Mannheim;8.55;49.51;96.1;2;20060531;20060606;Feuchtesonde HMP45D;Feuchtemessung, elektr.;eor;
+5906;Mannheim;8.55;49.51;96.1;2;20060607;20150608;Feuchtesonde HMP45D;Feuchtemessung, elektr.;eor;
+5906;Mannheim;8.55;49.51;96.1;2;20150609;20180402;EE33;Feuchtemessung, elektr.;eor;
+5906;Mannheim;8.56;49.51;97.95;2;20180403;20240328;EE33;Feuchtemessung, elektr.;eor;
+generiert: 03.04.2024 --  Deutscher Wetterdienst  --

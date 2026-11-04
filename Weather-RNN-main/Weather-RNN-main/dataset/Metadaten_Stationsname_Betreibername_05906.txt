@@ -1,0 +1,13 @@
+Stations_ID;Stationsname;Von_Datum;Bis_Datum
+  5906;Mannhein;17580101;17921231
+  5906;Mannheim;18210601;18270624
+  5906;Mannheim;18410101;19430930
+  5906;Mannheim;19460801;
+
+Stations_ID;Betreibername;Von_Datum;Bis_Datum
+  5906;Wetterdienst;17580101;17921231
+  5906;Wetterdienst;18210601;18270624
+  5906;Wetterdienst;18410101;19430930
+  5906;Wetterdienst;19460801;19521110
+  5906;DWD;19521111;
+generiert: 03.04.2024 --  Deutscher Wetterdienst  --
